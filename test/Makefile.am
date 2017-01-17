@@ -21,4 +21,4 @@
 
 TESTS = test_escape.sh test_escape_c.sh test_escape_o.sh test_unescape.sh
 
-dist_noinst_DATA = $(TESTS) raw minimum cstyle octal
+dist_noinst_DATA = $(TESTS) raw minimum cstyle octal octalall misc
