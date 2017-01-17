@@ -29,7 +29,7 @@ if [ $result -ne 0 ] ; then
 	exit $result
 fi
 
-../escapefn -u cstyle | diff -q - raw
+../escapefn -u cstyle | cmp - raw
 
 result=$?
 
@@ -37,7 +37,7 @@ if [ $result -ne 0 ] ; then
 	exit $result
 fi
 
-../escapefn -u octal | diff -q - raw
+../escapefn -u octal | cmp - raw
 
 result=$?
 
@@ -45,7 +45,7 @@ if [ $result -ne 0 ] ; then
 	exit $result
 fi
 
-../escapefn -u octalall | diff -q - raw
+../escapefn -u octalall | cmp - raw
 
 result=$?
 
@@ -53,7 +53,7 @@ if [ $result -ne 0 ] ; then
 	exit $result
 fi
 
-../escapefn -u misc | diff -q - raw
+../escapefn -u misc | cmp - raw
 
 result=$?
 
