@@ -21,7 +21,7 @@
 # 3. This notice may not be removed or altered from any source
 #    distribution.
 
-../escapefn -o raw | cmp - octal
+../escapefn -o "${srcdir}"/raw | cmp - "${srcdir}"/octal
 
 result=$?
 

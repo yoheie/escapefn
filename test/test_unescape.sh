@@ -21,7 +21,7 @@
 # 3. This notice may not be removed or altered from any source
 #    distribution.
 
-../escapefn -u minimum | cmp - raw
+../escapefn -u "${srcdir}"/minimum | cmp - "${srcdir}"/raw
 
 result=$?
 
@@ -29,7 +29,7 @@ if [ $result -ne 0 ] ; then
 	exit $result
 fi
 
-../escapefn -u cstyle | cmp - raw
+../escapefn -u "${srcdir}"/cstyle | cmp - "${srcdir}"/raw
 
 result=$?
 
@@ -37,7 +37,7 @@ if [ $result -ne 0 ] ; then
 	exit $result
 fi
 
-../escapefn -u octal | cmp - raw
+../escapefn -u "${srcdir}"/octal | cmp - "${srcdir}"/raw
 
 result=$?
 
@@ -45,7 +45,7 @@ if [ $result -ne 0 ] ; then
 	exit $result
 fi
 
-../escapefn -u octalall | cmp - raw
+../escapefn -u "${srcdir}"/octalall | cmp - "${srcdir}"/raw
 
 result=$?
 
@@ -53,7 +53,7 @@ if [ $result -ne 0 ] ; then
 	exit $result
 fi
 
-../escapefn -u misc | cmp - raw
+../escapefn -u "${srcdir}"/misc | cmp - "${srcdir}"/raw
 
 result=$?
 
