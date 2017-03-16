@@ -24,4 +24,4 @@ escapefn_SOURCES = escapefn.c
 
 dist_doc_DATA = ReadMe.txt
 
-SUBDIRS = test
+SUBDIRS = . test
