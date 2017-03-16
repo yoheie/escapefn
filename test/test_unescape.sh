@@ -21,6 +21,10 @@
 # 3. This notice may not be removed or altered from any source
 #    distribution.
 
+if [ "${srcdir}" = "" ] ; then
+	srcdir=.
+fi
+
 ../escapefn -u "${srcdir}"/minimum | cmp - "${srcdir}"/raw
 
 result=$?

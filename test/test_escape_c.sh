@@ -21,6 +21,10 @@
 # 3. This notice may not be removed or altered from any source
 #    distribution.
 
+if [ "${srcdir}" = "" ] ; then
+	srcdir=.
+fi
+
 ../escapefn -c "${srcdir}"/raw | cmp - "${srcdir}"/cstyle
 
 result=$?
