@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017 Yohei Endo <yoheie@gmail.com>
+ * Copyright (c) 2016-2018 Yohei Endo <yoheie@gmail.com>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -44,6 +44,8 @@ static const char usage_str[] =
 	"  -m, --minimum     escape LF and backslash only (default)\n"
 	"  -c, --cstyle      escape all C0 control chars and DEL in C style\n"
 	"  -o, --octal       escape all C0 control chars and DEL in octal\n"
+	"  -C, --cstylefull  escape all C0, DEL and Non-ASCII chars in C style\n"
+	"  -O, --octalfull   escape all C0, DEL and Non-ASCII chars in octal\n"
 	"  -u, --unescape    unescape\n"
 	"  -h, --help        show this help\n"
 	;
@@ -51,7 +53,9 @@ static const char usage_str[] =
 static enum {
 	ESCAPE_MINIMUM,
 	ESCAPE_CSTYLE,
-	ESCAPE_OCTAL
+	ESCAPE_OCTAL,
+	ESCAPE_CSTYLEFULL,
+	ESCAPE_OCTALFULL
 } escape_opt = ESCAPE_MINIMUM;
 
 int main(int argc, char *argv[])
@@ -87,6 +91,12 @@ int main(int argc, char *argv[])
 			else if (strcmp(&argv[i][2], "octal") == 0) {
 				escape_opt = ESCAPE_OCTAL;
 			}
+			else if (strcmp(&argv[i][2], "cstylefull") == 0) {
+				escape_opt = ESCAPE_CSTYLEFULL;
+			}
+			else if (strcmp(&argv[i][2], "octalfull") == 0) {
+				escape_opt = ESCAPE_OCTALFULL;
+			}
 			else if (strcmp(&argv[i][2], "unescape") == 0) {
 				u = 1;
 			}
@@ -108,6 +118,12 @@ int main(int argc, char *argv[])
 				}
 				else if (argv[i][j] == 'o') {
 					escape_opt = ESCAPE_OCTAL;
+				}
+				else if (argv[i][j] == 'C') {
+					escape_opt = ESCAPE_CSTYLEFULL;
+				}
+				else if (argv[i][j] == 'O') {
+					escape_opt = ESCAPE_OCTALFULL;
 				}
 				else if (argv[i][j] == 'u') {
 					u = 1;
@@ -178,20 +194,25 @@ static int escape(FILE *pfin, FILE *pfout)
 			if (putc('\\', pfout) == EOF) break;
 			if (putc('\\', pfout) == EOF) break;
 		}
-		else if ((escape_opt != ESCAPE_OCTAL)
+		else if (((escape_opt != ESCAPE_OCTAL)
+		       && (escape_opt != ESCAPE_OCTALFULL))
 		      && (c == '\n')
 		) {
 			if (putc('\\', pfout) == EOF) break;
 			if (putc('n', pfout) == EOF) break;
 		}
-		else if ((escape_opt == ESCAPE_CSTYLE)
+		else if (((escape_opt == ESCAPE_CSTYLE)
+		       || (escape_opt == ESCAPE_CSTYLEFULL))
 		      && ((007 <= c) && (c <= 015))
 		) {
 			if (putc('\\', pfout) == EOF) break;
 			if (putc(abtnvfr[c - 007], pfout) == EOF) break;
 		}
-		else if ((escape_opt != ESCAPE_MINIMUM)
-		      && (((001 <= c) && (c <= 037)) || (c == 0177))
+		else if (((escape_opt != ESCAPE_MINIMUM)
+		       && (((001 <= c) && (c <= 037)) || (c == 0177)))
+		      || (((escape_opt == ESCAPE_CSTYLEFULL)
+		        || (escape_opt == ESCAPE_OCTALFULL))
+		       && (0200 <= c))
 		) {
 			if (putc('\\', pfout) == EOF) break;
 			for (i = 0; i < 3; i++) {

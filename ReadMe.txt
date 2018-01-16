@@ -6,11 +6,13 @@ Options:
   -m, --minimum     escape LF and backslash only (default)
   -c, --cstyle      escape all C0 control chars and DEL in C style
   -o, --octal       escape all C0 control chars and DEL in octal
+  -C, --cstylefull  escape all C0, DEL and Non-ASCII chars in C style
+  -O, --octalfull   escape all C0, DEL and Non-ASCII chars in octal
   -u, --unescape    unescape
   -h, --help        show this help
 
 
-Copyright (c) 2016-2017 Yohei Endo <yoheie@gmail.com>
+Copyright (c) 2016-2018 Yohei Endo <yoheie@gmail.com>
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages

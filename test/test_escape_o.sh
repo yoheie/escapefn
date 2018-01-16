@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (c) 2016-2017 Yohei Endo <yoheie@gmail.com>
+# Copyright (c) 2016-2018 Yohei Endo <yoheie@gmail.com>
 #
 # This software is provided 'as-is', without any express or implied
 # warranty. In no event will the authors be held liable for any damages
@@ -26,6 +26,14 @@ if [ "${srcdir}" = "" ] ; then
 fi
 
 ../escapefn -o "${srcdir}"/raw | cmp - "${srcdir}"/octal
+
+result=$?
+
+if [ $result -ne 0 ] ; then
+	exit $result
+fi
+
+../escapefn -O "${srcdir}"/raw | cmp - "${srcdir}"/octalfull
 
 result=$?
 
