@@ -23,5 +23,6 @@ bin_PROGRAMS = escapefn
 escapefn_SOURCES = escapefn.c
 
 dist_doc_DATA = ReadMe.txt
+EXTRA_DIST = escapefn.spec
 
 SUBDIRS = . test

@@ -38,4 +38,5 @@ AC_PROG_CC
 
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([test/Makefile])
+AC_CONFIG_FILES([escapefn.spec])
 AC_OUTPUT
